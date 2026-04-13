@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "id": "sample-volume-1",
+      "volumeInfo": {
+        "title": "Deep Work",
+        "subtitle": "Rules for Focused Success in a Distracted World",
+        "authors": [
+          "Cal Newport"
+        ],
+        "publisher": "Grand Central Publishing",
+        "publishedDate": "2016-01-05",
+        "description": "A sample Google Books payload used for local import testing.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "1455586692"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9781455586691"
+          }
+        ],
+        "pageCount": 304,
+        "categories": [
+          "Productivity",
+          "Business"
+        ],
+        "averageRating": 4.5,
+        "ratingsCount": 850,
+        "language": "en",
+        "previewLink": "https://books.google.com/books?id=sample-volume-1",
+        "infoLink": "https://books.google.com/books?id=sample-volume-1",
+        "imageLinks": {
+          "smallThumbnail": "https://example.com/deep-work-small.jpg",
+          "thumbnail": "https://example.com/deep-work.jpg"
+        }
+      }
+    },
+    {
+      "id": "sample-volume-2",
+      "volumeInfo": {
+        "title": "Atomic Habits",
+        "authors": [
+          "James Clear"
+        ],
+        "publisher": "Avery",
+        "publishedDate": "2018-10-16",
+        "description": "Sample data for habit tracking and recommendation testing.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0735211299"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780735211292"
+          }
+        ],
+        "pageCount": 320,
+        "categories": [
+          "Self-Help",
+          "Productivity"
+        ],
+        "averageRating": 4.7,
+        "ratingsCount": 1250,
+        "language": "en",
+        "previewLink": "https://books.google.com/books?id=sample-volume-2",
+        "infoLink": "https://books.google.com/books?id=sample-volume-2",
+        "imageLinks": {
+          "smallThumbnail": "https://example.com/atomic-habits-small.jpg",
+          "thumbnail": "https://example.com/atomic-habits.jpg"
+        }
+      }
+    }
+  ]
+}

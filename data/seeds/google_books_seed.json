@@ -1,0 +1,56 @@
+[
+  {
+    "google_volume_id": "sample-volume-1",
+    "title": "Deep Work",
+    "subtitle": "Rules for Focused Success in a Distracted World",
+    "isbn10": "1455586692",
+    "isbn13": "9781455586691",
+    "publication_year": 2016,
+    "published_date_raw": "2016-01-05",
+    "language": "en",
+    "page_count": 304,
+    "description": "A sample Google Books payload used for local import testing.",
+    "cover_url": "https://example.com/deep-work.jpg",
+    "preview_link": "https://books.google.com/books?id=sample-volume-1",
+    "info_link": "https://books.google.com/books?id=sample-volume-1",
+    "publisher": "Grand Central Publishing",
+    "average_external_rating": 4.5,
+    "external_rating_count": 850,
+    "source_name": "google_books",
+    "source_url": "https://www.googleapis.com/books/v1/volumes/sample-volume-1",
+    "authors": [
+      "Cal Newport"
+    ],
+    "genres": [
+      "Productivity",
+      "Business"
+    ]
+  },
+  {
+    "google_volume_id": "sample-volume-2",
+    "title": "Atomic Habits",
+    "subtitle": "",
+    "isbn10": "0735211299",
+    "isbn13": "9780735211292",
+    "publication_year": 2018,
+    "published_date_raw": "2018-10-16",
+    "language": "en",
+    "page_count": 320,
+    "description": "Sample data for habit tracking and recommendation testing.",
+    "cover_url": "https://example.com/atomic-habits.jpg",
+    "preview_link": "https://books.google.com/books?id=sample-volume-2",
+    "info_link": "https://books.google.com/books?id=sample-volume-2",
+    "publisher": "Avery",
+    "average_external_rating": 4.7,
+    "external_rating_count": 1250,
+    "source_name": "google_books",
+    "source_url": "https://www.googleapis.com/books/v1/volumes/sample-volume-2",
+    "authors": [
+      "James Clear"
+    ],
+    "genres": [
+      "Self-Help",
+      "Productivity"
+    ]
+  }
+]
