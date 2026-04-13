@@ -1,0 +1,2064 @@
+openapi: 3.0.3
+info:
+  title: BookScope API
+  version: 1.0.0
+  description: Book discovery, bookshelf, recommendation, and reading analytics API.
+paths:
+  /api/analytics/authors/top/:
+    get:
+      operationId: analytics_authors_top_retrieve
+      tags:
+      - analytics
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopAuthorResponse'
+          description: ''
+  /api/analytics/books/trending/:
+    get:
+      operationId: analytics_books_trending_retrieve
+      tags:
+      - analytics
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleBookAnalyticsResponse'
+          description: ''
+  /api/analytics/genres/popularity/:
+    get:
+      operationId: analytics_genres_popularity_retrieve
+      tags:
+      - analytics
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenrePopularityResponse'
+          description: ''
+  /api/analytics/me/reading-summary/:
+    get:
+      operationId: analytics_me_reading_summary_retrieve
+      tags:
+      - analytics
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadingSummary'
+          description: ''
+  /api/analytics/ratings/distribution/:
+    get:
+      operationId: analytics_ratings_distribution_retrieve
+      tags:
+      - analytics
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingsDistributionResponse'
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: auth_register_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/authors/:
+    get:
+      operationId: authors_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAuthorList'
+          description: ''
+    post:
+      operationId: authors_create
+      tags:
+      - authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+  /api/authors/{id}/:
+    get:
+      operationId: authors_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this author.
+        required: true
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    put:
+      operationId: authors_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this author.
+        required: true
+      tags:
+      - authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    patch:
+      operationId: authors_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this author.
+        required: true
+      tags:
+      - authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAuthor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAuthor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAuthor'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+    delete:
+      operationId: authors_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this author.
+        required: true
+      tags:
+      - authors
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/books/:
+    get:
+      operationId: books_list
+      parameters:
+      - in: query
+        name: author
+        schema:
+          type: integer
+      - in: query
+        name: genre
+        schema:
+          type: integer
+      - in: query
+        name: language
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: year_max
+        schema:
+          type: integer
+      - in: query
+        name: year_min
+        schema:
+          type: integer
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBookList'
+          description: ''
+    post:
+      operationId: books_create
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+  /api/books/{book_id}/reviews/:
+    get:
+      operationId: books_reviews_list
+      parameters:
+      - in: path
+        name: book_id
+        schema:
+          type: integer
+        required: true
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+    post:
+      operationId: books_reviews_create
+      parameters:
+      - in: path
+        name: book_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /api/books/{id}/:
+    get:
+      operationId: books_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this book.
+        required: true
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    put:
+      operationId: books_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this book.
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    patch:
+      operationId: books_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this book.
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+    delete:
+      operationId: books_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this book.
+        required: true
+      tags:
+      - books
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/genres/:
+    get:
+      operationId: genres_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - genres
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGenreList'
+          description: ''
+    post:
+      operationId: genres_create
+      tags:
+      - genres
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+  /api/genres/{id}/:
+    get:
+      operationId: genres_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this genre.
+        required: true
+      tags:
+      - genres
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    put:
+      operationId: genres_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this genre.
+        required: true
+      tags:
+      - genres
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Genre'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    patch:
+      operationId: genres_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this genre.
+        required: true
+      tags:
+      - genres
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGenre'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+          description: ''
+    delete:
+      operationId: genres_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this genre.
+        required: true
+      tags:
+      - genres
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/health/:
+    get:
+      operationId: health_retrieve
+      tags:
+      - health
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: ''
+  /api/me/bookshelf/:
+    get:
+      operationId: me_bookshelf_list
+      parameters:
+      - in: query
+        name: is_favorite
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - completed
+          - dropped
+          - reading
+          - want_to_read
+        description: |-
+          * `want_to_read` - Want to Read
+          * `reading` - Reading
+          * `completed` - Completed
+          * `dropped` - Dropped
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBookshelfEntryList'
+          description: ''
+    post:
+      operationId: me_bookshelf_create
+      tags:
+      - me
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookshelfEntry'
+          description: ''
+  /api/me/bookshelf/{id}/:
+    get:
+      operationId: me_bookshelf_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bookshelf entry.
+        required: true
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookshelfEntry'
+          description: ''
+    put:
+      operationId: me_bookshelf_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bookshelf entry.
+        required: true
+      tags:
+      - me
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookshelfEntry'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookshelfEntry'
+          description: ''
+    patch:
+      operationId: me_bookshelf_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bookshelf entry.
+        required: true
+      tags:
+      - me
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBookshelfEntry'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBookshelfEntry'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBookshelfEntry'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookshelfEntry'
+          description: ''
+    delete:
+      operationId: me_bookshelf_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bookshelf entry.
+        required: true
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/recommendations/for-me/:
+    get:
+      operationId: recommendations_for_me_retrieve
+      tags:
+      - recommendations
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationResponse'
+          description: ''
+  /api/recommendations/similar-books/{book_id}/:
+    get:
+      operationId: recommendations_similar_books_retrieve
+      parameters:
+      - in: path
+        name: book_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - recommendations
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleBookAnalyticsResponse'
+          description: ''
+  /api/reviews/{id}/:
+    get:
+      operationId: reviews_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reviews
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    put:
+      operationId: reviews_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: reviews_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    delete:
+      operationId: reviews_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reviews
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        country:
+          type: string
+          maxLength: 128
+        birth_year:
+          type: integer
+          nullable: true
+        death_year:
+          type: integer
+          nullable: true
+        bio:
+          type: string
+        books_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - books_count
+      - created_at
+      - id
+      - name
+      - updated_at
+    AuthorSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - id
+      - name
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        google_volume_id:
+          type: string
+          nullable: true
+          maxLength: 128
+        title:
+          type: string
+          maxLength: 255
+        subtitle:
+          type: string
+          maxLength: 255
+        isbn10:
+          type: string
+          maxLength: 20
+        isbn13:
+          type: string
+          maxLength: 20
+        publication_year:
+          type: integer
+          nullable: true
+        published_date_raw:
+          type: string
+          maxLength: 32
+        language:
+          type: string
+          maxLength: 16
+        page_count:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        cover_url:
+          type: string
+          format: uri
+          maxLength: 500
+        preview_link:
+          type: string
+          format: uri
+          maxLength: 500
+        info_link:
+          type: string
+          format: uri
+          maxLength: 500
+        publisher:
+          type: string
+          maxLength: 255
+        average_external_rating:
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          nullable: true
+        external_rating_count:
+          type: integer
+        source_name:
+          type: string
+          maxLength: 64
+        source_url:
+          type: string
+          format: uri
+          maxLength: 500
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSummary'
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreSummary'
+          readOnly: true
+        author_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        genre_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        local_average_rating:
+          type: number
+          format: double
+          readOnly: true
+        local_review_count:
+          type: integer
+          readOnly: true
+        bookshelf_count:
+          type: integer
+          readOnly: true
+        popularity_score:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - authors
+      - bookshelf_count
+      - created_at
+      - genres
+      - id
+      - local_average_rating
+      - local_review_count
+      - popularity_score
+      - title
+      - updated_at
+    BookCompact:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        subtitle:
+          type: string
+          maxLength: 255
+        cover_url:
+          type: string
+          format: uri
+          maxLength: 500
+        publication_year:
+          type: integer
+          nullable: true
+        language:
+          type: string
+          maxLength: 16
+        average_external_rating:
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          nullable: true
+        external_rating_count:
+          type: integer
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSummary'
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreSummary'
+          readOnly: true
+      required:
+      - authors
+      - genres
+      - id
+      - title
+    BookshelfEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        book:
+          allOf:
+          - $ref: '#/components/schemas/BookCompact'
+          readOnly: true
+        book_id:
+          type: integer
+          writeOnly: true
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        personal_rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+          nullable: true
+        is_favorite:
+          type: boolean
+        notes:
+          type: string
+        started_at:
+          type: string
+          format: date
+          nullable: true
+        finished_at:
+          type: string
+          format: date
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - book
+      - book_id
+      - created_at
+      - id
+      - updated_at
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 128
+        description:
+          type: string
+        books_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - books_count
+      - created_at
+      - id
+      - name
+      - updated_at
+    GenrePopularity:
+      type: object
+      properties:
+        genre_id:
+          type: integer
+        genre_name:
+          type: string
+        bookshelf_count:
+          type: integer
+        review_count:
+          type: integer
+        average_rating:
+          type: number
+          format: double
+      required:
+      - average_rating
+      - bookshelf_count
+      - genre_id
+      - genre_name
+      - review_count
+    GenrePopularityResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenrePopularity'
+      required:
+      - results
+    GenreSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 128
+      required:
+      - id
+      - name
+    HealthCheck:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+      required:
+      - service
+      - status
+    PaginatedAuthorList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Author'
+    PaginatedBookList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+    PaginatedBookshelfEntryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookshelfEntry'
+    PaginatedGenreList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+    PaginatedReviewList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    PatchedAuthor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        country:
+          type: string
+          maxLength: 128
+        birth_year:
+          type: integer
+          nullable: true
+        death_year:
+          type: integer
+          nullable: true
+        bio:
+          type: string
+        books_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedBook:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        google_volume_id:
+          type: string
+          nullable: true
+          maxLength: 128
+        title:
+          type: string
+          maxLength: 255
+        subtitle:
+          type: string
+          maxLength: 255
+        isbn10:
+          type: string
+          maxLength: 20
+        isbn13:
+          type: string
+          maxLength: 20
+        publication_year:
+          type: integer
+          nullable: true
+        published_date_raw:
+          type: string
+          maxLength: 32
+        language:
+          type: string
+          maxLength: 16
+        page_count:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        cover_url:
+          type: string
+          format: uri
+          maxLength: 500
+        preview_link:
+          type: string
+          format: uri
+          maxLength: 500
+        info_link:
+          type: string
+          format: uri
+          maxLength: 500
+        publisher:
+          type: string
+          maxLength: 255
+        average_external_rating:
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          nullable: true
+        external_rating_count:
+          type: integer
+        source_name:
+          type: string
+          maxLength: 64
+        source_url:
+          type: string
+          format: uri
+          maxLength: 500
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSummary'
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreSummary'
+          readOnly: true
+        author_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        genre_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        local_average_rating:
+          type: number
+          format: double
+          readOnly: true
+        local_review_count:
+          type: integer
+          readOnly: true
+        bookshelf_count:
+          type: integer
+          readOnly: true
+        popularity_score:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedBookshelfEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        book:
+          allOf:
+          - $ref: '#/components/schemas/BookCompact'
+          readOnly: true
+        book_id:
+          type: integer
+          writeOnly: true
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        personal_rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+          nullable: true
+        is_favorite:
+          type: boolean
+        notes:
+          type: string
+        started_at:
+          type: string
+          format: date
+          nullable: true
+        finished_at:
+          type: string
+          format: date
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedGenre:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 128
+        description:
+          type: string
+        books_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+        contains_spoiler:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    RatingsDistribution:
+      type: object
+      properties:
+        rating:
+          type: integer
+        count:
+          type: integer
+      required:
+      - count
+      - rating
+    RatingsDistributionResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatingsDistribution'
+      required:
+      - results
+    ReadingSummary:
+      type: object
+      properties:
+        total_entries:
+          type: integer
+        want_to_read:
+          type: integer
+        reading:
+          type: integer
+        completed:
+          type: integer
+        dropped:
+          type: integer
+        favorites:
+          type: integer
+        average_personal_rating:
+          type: number
+          format: double
+        top_genres:
+          type: array
+          items:
+            type: string
+      required:
+      - average_personal_rating
+      - completed
+      - dropped
+      - favorites
+      - reading
+      - top_genres
+      - total_entries
+      - want_to_read
+    RecommendationItem:
+      type: object
+      properties:
+        book_id:
+          type: integer
+        title:
+          type: string
+        cover_url:
+          type: string
+        recommendation_score:
+          type: number
+          format: double
+        reasons:
+          type: array
+          items:
+            type: string
+        authors:
+          type: array
+          items:
+            type: string
+        genres:
+          type: array
+          items:
+            type: string
+      required:
+      - authors
+      - book_id
+      - cover_url
+      - genres
+      - reasons
+      - recommendation_score
+      - title
+    RecommendationResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationItem'
+      required:
+      - results
+    Register:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - id
+      - password
+      - username
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+        title:
+          type: string
+          maxLength: 255
+        content:
+          type: string
+        contains_spoiler:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - content
+      - created_at
+      - id
+      - rating
+      - updated_at
+      - username
+    SimpleBookAnalytics:
+      type: object
+      properties:
+        book_id:
+          type: integer
+        title:
+          type: string
+        cover_url:
+          type: string
+        score:
+          type: number
+          format: double
+      required:
+      - book_id
+      - cover_url
+      - score
+      - title
+    SimpleBookAnalyticsResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleBookAnalytics'
+      required:
+      - results
+    StatusEnum:
+      enum:
+      - want_to_read
+      - reading
+      - completed
+      - dropped
+      type: string
+      description: |-
+        * `want_to_read` - Want to Read
+        * `reading` - Reading
+        * `completed` - Completed
+        * `dropped` - Dropped
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TopAuthor:
+      type: object
+      properties:
+        author_id:
+          type: integer
+        author_name:
+          type: string
+        bookshelf_count:
+          type: integer
+        review_count:
+          type: integer
+        average_rating:
+          type: number
+          format: double
+      required:
+      - author_id
+      - author_name
+      - average_rating
+      - bookshelf_count
+      - review_count
+    TopAuthorResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopAuthor'
+      required:
+      - results
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - id
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
