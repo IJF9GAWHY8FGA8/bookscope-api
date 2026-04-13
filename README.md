@@ -2,6 +2,8 @@
 
 BookScope API is a Django REST Framework project for book discovery, personal bookshelves, reviews, explainable recommendations, and reading analytics.
 
+Public repository: <https://github.com/IJF9GAWHY8FGA8/bookscope-api>
+
 ## Core Features
 
 - Google Books ingestion into a local SQLite-backed catalog
@@ -65,6 +67,20 @@ Run the test suite with:
 pytest
 ```
 
+## Submission Deliverables
+
+- [API documentation source](docs/api_documentation.md)
+- [API documentation PDF](docs/api_documentation.pdf)
+- [OpenAPI schema](docs/api_openapi.yaml)
+- [Technical report source](docs/technical_report.md)
+- [Technical report PDF](docs/technical_report.pdf)
+- [GenAI appendix source](docs/genai_usage_appendix.md)
+- [GenAI appendix PDF](docs/genai_usage_appendix.pdf)
+- [Conversation logs appendix source](docs/conversation_logs_appendix.md)
+- [Conversation logs appendix PDF](docs/conversation_logs_appendix.pdf)
+- [Presentation outline](slides/bookscope_presentation_outline.md)
+- [Presentation deck](slides/bookscope_presentation.pptx)
+
 ## API Documentation
 
 Runtime schema endpoints:
@@ -74,14 +90,12 @@ Runtime schema endpoints:
 
 Generated submission assets:
 
-- `docs/api_openapi.yaml`
-- `docs/api_documentation.md`
-- `docs/api_documentation.pdf`
-- `docs/technical_report.md`
-- `docs/technical_report.pdf`
-- `docs/genai_usage_appendix.md`
-- `docs/genai_usage_appendix.pdf`
-- `slides/bookscope_presentation.pptx`
+- [OpenAPI schema](docs/api_openapi.yaml)
+- [API documentation PDF](docs/api_documentation.pdf)
+- [Technical report PDF](docs/technical_report.pdf)
+- [GenAI appendix PDF](docs/genai_usage_appendix.pdf)
+- [Conversation logs appendix PDF](docs/conversation_logs_appendix.pdf)
+- [Presentation deck](slides/bookscope_presentation.pptx)
 
 To rebuild the exported documentation assets:
 
@@ -90,8 +104,18 @@ python manage.py spectacular --file docs/api_openapi.yaml
 python scripts/build_submission_assets.py
 ```
 
+## Deployment Readiness
+
+The repository includes a Render-oriented deployment package:
+
+- [Procfile](Procfile)
+- [Render blueprint](render.yaml)
+
+This environment did not include hosting account credentials, so a live public URL could not be provisioned automatically. The deployment package is ready for one-click setup on a hosting platform with the required account access.
+
 ## Main Endpoint Groups
 
+- Health and documentation: `/api/health/`, `/api/schema/`, `/api/docs/`
 - Authentication: `/api/auth/`
 - Catalog: `/api/books/`, `/api/authors/`, `/api/genres/`
 - Personal bookshelf: `/api/me/bookshelf/`

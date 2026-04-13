@@ -1,12 +1,15 @@
 # BookScope Presentation Outline
 
-1. Title and problem statement
-2. Why a local recommendation API instead of a proxy to Google Books
-3. System architecture
-4. Data model and Google Books ingestion workflow
-5. Core API capabilities
-6. Recommendation and analytics logic
-7. Testing and error handling
-8. Version control and deliverables
-9. Demo flow
-10. Limitations and future work
+1. Title, value proposition, and dataset choice
+2. Problem framing and coursework scope
+3. Architecture overview
+4. Data model overview
+5. Google Books ingestion workflow
+6. API documentation and endpoint overview
+7. Recommendation and analytics design
+8. Testing and error handling
+9. Version control practice and commit history
+10. Deliverables and deployment method
+11. Technical report highlights
+12. GenAI usage and oversight
+13. Demo flow, limitations, and next steps

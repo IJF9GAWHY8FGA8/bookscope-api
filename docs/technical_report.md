@@ -1,14 +1,22 @@
 # BookScope API Technical Report
 
-## 1. Introduction
+## 1. Submission Links
 
-BookScope API is a Django REST Framework application for book discovery, personal reading tracking, reviews, explainable recommendations, and reading analytics. The coursework goal is not only to expose CRUD endpoints, but to demonstrate database-driven API design, data ingestion, authentication, testing, and version-controlled delivery.
+- Public repository: https://github.com/IJF9GAWHY8FGA8/bookscope-api
+- API documentation PDF: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/docs/api_documentation.pdf
+- Presentation slides: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/slides/bookscope_presentation.pptx
+- GenAI appendix: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/docs/genai_usage_appendix.pdf
+- Conversation logs appendix: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/docs/conversation_logs_appendix.pdf
 
-## 2. Problem and Motivation
+## 2. Introduction
+
+BookScope API is a Django REST Framework application for book discovery, personal reading tracking, reviews, explainable recommendations, and reading analytics. The coursework goal is not only to expose CRUD endpoints, but to demonstrate database-driven API design, data ingestion, authentication, testing, documentation, and version-controlled delivery.
+
+## 3. Problem and Motivation
 
 Many public book APIs provide metadata, but they do not directly support user-centered reading workflows such as maintaining a local bookshelf, capturing private reading states, writing platform-specific reviews, or generating recommendations from a user's own behavior. BookScope addresses that gap by combining third-party metadata with locally stored user activity. This design also aligns well with the assignment brief because it supports both operational CRUD use cases and higher-level analytical endpoints.
 
-## 3. Technology Choices
+## 4. Technology Choices
 
 ### Django and Django REST Framework
 
@@ -22,7 +30,7 @@ SQLite was selected as the database because it is lightweight, zero-configuratio
 
 Google Books was used as a metadata source rather than as the direct runtime backend. This distinction is important. The system imports and normalizes selected Google Books metadata into local tables, allowing the API to remain database-driven and to support user activity that third-party services do not model for this coursework. This approach also improves reproducibility because the core API behavior depends on local data, not on live external API responses.
 
-## 4. System Architecture
+## 5. System Architecture
 
 The system is split into four functional areas:
 
@@ -33,7 +41,7 @@ The system is split into four functional areas:
 
 This modular split improves maintainability and makes it easier to explain the system during the oral examination.
 
-## 5. Data Model
+## 6. Data Model
 
 The main entities are:
 
@@ -50,7 +58,7 @@ The catalog uses many-to-many relations between books and both authors and genre
 
 These constraints were added to preserve consistency and to simplify downstream recommendation and analytics logic.
 
-## 6. Data Ingestion and Normalization
+## 7. Data Ingestion and Normalization
 
 The ingestion pipeline fetches Google Books payloads, extracts useful fields, normalizes identifiers and text values, and stores the result locally. The process includes:
 
@@ -62,7 +70,7 @@ The ingestion pipeline fetches Google Books payloads, extracts useful fields, no
 
 This data preparation stage is important because public datasets are rarely perfectly clean. Handling missing identifiers, multiple authors, multiple categories, and inconsistent date formats demonstrates practical engineering rather than idealized CRUD scaffolding.
 
-## 7. API Design
+## 8. API Design
 
 The API follows a REST style with JSON responses, pagination, filtering, and clear permissions. Public endpoints expose catalog browsing and selected analytics. Authenticated endpoints enable user-specific actions such as bookshelf management, review creation, personalized recommendations, and reading summaries. Administrative write access is restricted to staff users for catalog management.
 
@@ -77,11 +85,11 @@ Key endpoint groups include:
 
 This structure supports both the minimum coursework requirements and higher-scoring analytical behaviors.
 
-## 8. Authentication, Validation, and Error Handling
+## 9. Authentication, Validation, and Error Handling
 
 JWT was chosen because it works well for stateless API authentication and is easy to demonstrate in local and hosted environments. Validation is handled through serializers and model constraints. The API also wraps errors in a structured response format to make failures easier to interpret and document. Typical validation examples include rating limits, duplicate bookshelf entries, duplicate reviews, and permission checks.
 
-## 9. Recommendation and Analytics Design
+## 10. Recommendation and Analytics Design
 
 The recommendation engine is intentionally rule-based rather than machine-learning-heavy. This was a deliberate tradeoff. A rules approach is faster to implement, easier to test, and much easier to justify in a short oral exam because recommendation reasons can be surfaced directly. The scoring strategy combines:
 
@@ -93,7 +101,7 @@ The recommendation engine is intentionally rule-based rather than machine-learni
 
 The analytics endpoints complement this by exposing catalog-level and user-level summaries such as genre popularity, ratings distribution, top authors, and reading summary metrics.
 
-## 10. Testing Strategy
+## 11. Testing Strategy
 
 Testing focused on the highest-risk behaviors:
 
@@ -106,18 +114,26 @@ Testing focused on the highest-risk behaviors:
 
 This approach was selected because the coursework emphasizes working code, error handling, and defendable implementation choices rather than raw test volume alone.
 
-## 11. Limitations
+## 12. Challenges, Lessons, and Version Control
+
+The main implementation challenge was balancing coursework scope against depth. A fully ML-driven recommender or a large production database would have expanded complexity without clearly improving the coursework outcome. The chosen design instead prioritizes a clear domain model, explainable recommendation logic, consistent validation rules, and a staged commit history. Version control was intentionally organized around runtime setup, data ingestion, tests, source documentation, and generated assets so that development progress remains inspectable in the public repository.
+
+## 13. Deployment and Delivery
+
+The repository includes a deployment package for a hosted WSGI deployment using `gunicorn`, a `Procfile`, and a Render blueprint. In this environment no hosting account credentials were available, so a live public URL could not be provisioned automatically. The delivery package is nevertheless deployment-ready and includes the repository, API documentation PDF, technical report PDF, slides PPTX, and GenAI appendices required for submission.
+
+## 14. Limitations
 
 The project has several acknowledged limitations:
 
 - SQLite is not ideal for high-concurrency production workloads
 - recommendation scoring is heuristic rather than learned from large-scale behavior
 - trend scoring is simplistic and can be improved with richer temporal weighting
-- documentation and presentation assets may need polish for final submission formatting
+- live hosting still depends on external platform provisioning
 
 Stating these limitations explicitly is important because the brief expects reflection and awareness of future improvement areas.
 
-## 12. Future Improvements
+## 15. Future Improvements
 
 Potential future work includes:
 
@@ -127,6 +143,14 @@ Potential future work includes:
 - deployment hardening and environment-specific settings
 - more advanced documentation export workflows
 
-## 13. GenAI Declaration Summary
+## 16. GenAI Declaration and Analysis
 
-Generative AI was used as a planning, implementation, and documentation support tool. It was particularly useful for decomposing the project into modules, refining the API shape, and accelerating supporting materials. All AI use should be explicitly declared in the final appendix together with representative logs and a short explanation of where outputs were reviewed, adapted, or rejected.
+Generative AI was used as a declared planning, implementation, review, and documentation support tool. It was used to extract the coursework requirements from the brief, compare architecture options, shape the Google Books ingestion strategy, propose tests, and accelerate submission material drafting. Its outputs were not accepted blindly. Weak suggestions were rejected, several high-level plans were narrowed to fit a two-day build window, and the final module split, recommendation strategy, and deliverable structure were selected manually. The detailed declaration is in the GenAI appendix and the representative interaction record is provided in the conversation logs appendix.
+
+## 17. References
+
+- Google Books API documentation: https://developers.google.com/books/docs/v1/using
+- Django documentation: https://docs.djangoproject.com/
+- Django REST Framework documentation: https://www.django-rest-framework.org/
+- Simple JWT documentation: https://django-rest-framework-simplejwt.readthedocs.io/
+- drf-spectacular documentation: https://drf-spectacular.readthedocs.io/
