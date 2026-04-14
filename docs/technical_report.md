@@ -120,7 +120,7 @@ The main implementation challenge was balancing coursework scope against depth. 
 
 ## 13. Deployment and Delivery
 
-The repository includes a deployment package for a hosted WSGI deployment using `gunicorn`, a `Procfile`, and a Render blueprint. In this environment no hosting account credentials were available, so a live public URL could not be provisioned automatically. The delivery package is nevertheless deployment-ready and includes the repository, API documentation PDF, technical report PDF, slides PPTX, and GenAI appendices required for submission.
+The repository includes a PythonAnywhere deployment package built around a manual WSGI web app, a virtualenv, static file mappings, and an environment-driven configuration file. This choice fits the coursework well because it provides a simple externally hosted Django deployment without requiring Docker or more complex infrastructure. In this environment no PythonAnywhere account credentials were available, so a live public URL could not be provisioned automatically. The deployment guide and WSGI template are nevertheless included so that the project can be published on PythonAnywhere with minimal manual setup.
 
 ## 14. Limitations
 
@@ -129,7 +129,7 @@ The project has several acknowledged limitations:
 - SQLite is not ideal for high-concurrency production workloads
 - recommendation scoring is heuristic rather than learned from large-scale behavior
 - trend scoring is simplistic and can be improved with richer temporal weighting
-- live hosting still depends on external platform provisioning
+- live hosting still depends on final PythonAnywhere account-side setup
 
 Stating these limitations explicitly is important because the brief expects reflection and awareness of future improvement areas.
 

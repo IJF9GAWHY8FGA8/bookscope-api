@@ -325,12 +325,12 @@ def build_presentation(target_path: Path) -> None:
 
     # Slide 10
     slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_slide_frame(slide, "Deliverables and Deployment", 10, mist, body, coral)
+    add_slide_frame(slide, "Deliverables and PythonAnywhere Deployment", 10, mist, body, coral)
     add_card(slide, Inches(0.95), Inches(1.9), Inches(2.7), Inches(1.7), "Deliverables", "Public repo\nREADME\nAPI docs PDF\nTechnical report PDF", white, navy, body)
     add_card(slide, Inches(3.95), Inches(1.9), Inches(2.7), Inches(1.7), "More deliverables", "GenAI appendix\nConversation logs appendix\nSlides PPTX\nTests", white, navy, body)
-    add_card(slide, Inches(6.95), Inches(1.9), Inches(2.7), Inches(1.7), "Deployment package", "Procfile\nrender.yaml\ngunicorn\nEnv-driven hosts and secrets", white, navy, body)
-    add_card(slide, Inches(9.95), Inches(1.9), Inches(2.35), Inches(1.7), "Hosting note", "Provisioning needs a real hosting account. This repo is prepared for that step.", sand, navy, body)
-    add_text(slide, Inches(0.95), Inches(4.35), Inches(11.1), Inches(1.1), "Repository URL: github.com/IJF9GAWHY8FGA8/bookscope-api", 17, body)
+    add_card(slide, Inches(6.95), Inches(1.9), Inches(2.7), Inches(1.7), "Deployment method", "Manual web app\nVirtualenv\nPlatform WSGI file\nStatic mappings", white, navy, body)
+    add_card(slide, Inches(9.95), Inches(1.9), Inches(2.35), Inches(1.7), "Hosting note", "Final publication still needs a PythonAnywhere account and reload step.", sand, navy, body)
+    add_text(slide, Inches(0.95), Inches(4.35), Inches(11.1), Inches(1.1), "Target URL: https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/", 17, body)
 
     # Slide 11
     slide = prs.slides.add_slide(prs.slide_layouts[6])
@@ -356,7 +356,7 @@ def build_presentation(target_path: Path) -> None:
     add_slide_frame(slide, "Demo Flow, Limitations, and Next Steps", 13, navy, white, coral)
     add_bullets(slide, Inches(0.95), Inches(1.95), Inches(11.0), [
         "Demo flow: register, import data, browse catalog, add bookshelf entry, create review, request recommendations, inspect analytics",
-        "Limitations: SQLite scale, heuristic ranking, hosting still requires external platform provisioning",
+        "Limitations: SQLite scale, heuristic ranking, and a final PythonAnywhere account-side publish step",
         "Next steps: richer ranking, stronger deployment hardening, more advanced filtering and caching",
     ], white, 18)
 

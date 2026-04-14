@@ -4,13 +4,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def _split_env_list(name: str, default: str = ""):
+    return [item.strip() for item in os.getenv(name, default).split(",") if item.strip()]
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "bookscope-dev-secret-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-    if host.strip()
-]
+ALLOWED_HOSTS = _split_env_list("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost")
+CSRF_TRUSTED_ORIGINS = _split_env_list("DJANGO_CSRF_TRUSTED_ORIGINS", "")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -87,10 +88,15 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

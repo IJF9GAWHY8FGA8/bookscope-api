@@ -78,6 +78,7 @@ pytest
 - [GenAI appendix PDF](docs/genai_usage_appendix.pdf)
 - [Conversation logs appendix source](docs/conversation_logs_appendix.md)
 - [Conversation logs appendix PDF](docs/conversation_logs_appendix.pdf)
+- [PythonAnywhere deployment guide](docs/pythonanywhere_deployment.md)
 - [Presentation outline](slides/bookscope_presentation_outline.md)
 - [Presentation deck](slides/bookscope_presentation.pptx)
 
@@ -106,12 +107,20 @@ python scripts/build_submission_assets.py
 
 ## Deployment Readiness
 
-The repository includes a Render-oriented deployment package:
+The repository is prepared for a PythonAnywhere deployment:
 
-- [Procfile](Procfile)
-- [Render blueprint](render.yaml)
+- [PythonAnywhere deployment guide](docs/pythonanywhere_deployment.md)
+- [PythonAnywhere WSGI template](deployment/pythonanywhere_wsgi.py)
+- Environment example in [.env.example](.env.example)
 
-This environment did not include hosting account credentials, so a live public URL could not be provisioned automatically. The deployment package is ready for one-click setup on a hosting platform with the required account access.
+PythonAnywhere's official process uses:
+
+- a manually configured web app
+- a matching virtualenv
+- the platform-side WSGI file from the `Web` tab
+- static file mappings for `/static/` and optionally `/media/`
+
+This environment did not include your PythonAnywhere account credentials, so the live public URL could not be provisioned automatically. The repository is prepared so that deployment can be completed directly from the PythonAnywhere dashboard and Bash console.
 
 ## Main Endpoint Groups
 
