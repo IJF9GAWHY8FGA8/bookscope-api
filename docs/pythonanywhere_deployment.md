@@ -4,9 +4,9 @@
 
 Deploy BookScope API to a public PythonAnywhere URL so the coursework includes an external deployment.
 
-Expected final URL:
+Current live URL:
 
-- `https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/`
+- `https://pw123.pythonanywhere.com/`
 
 ## 1. Create the web app
 
@@ -42,19 +42,19 @@ pip install -r requirements.txt
 Then, in the `Web` tab, set the virtualenv for the web app to:
 
 ```text
-/home/YOUR_PYTHONANYWHERE_USERNAME/.virtualenvs/bookscope-api
+/home/pw123/.virtualenvs/bookscope-api
 ```
 
 ## 4. Create the production `.env`
 
-Create a `.env` file in `/home/YOUR_PYTHONANYWHERE_USERNAME/bookscope-api/.env`:
+Create a `.env` file in `/home/pw123/bookscope-api/.env`:
 
 ```bash
 cat > .env <<'EOF'
 DJANGO_SECRET_KEY=replace-with-a-long-random-secret
 DJANGO_DEBUG=False
-DJANGO_ALLOWED_HOSTS=YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com
-DJANGO_CSRF_TRUSTED_ORIGINS=https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com
+DJANGO_ALLOWED_HOSTS=pw123.pythonanywhere.com
+DJANGO_CSRF_TRUSTED_ORIGINS=https://pw123.pythonanywhere.com
 GOOGLE_BOOKS_API_KEY=
 EOF
 ```
@@ -77,16 +77,14 @@ workon bookscope-api
 PythonAnywhere does **not** use your project `bookscope/wsgi.py` directly for web app setup. You need to edit the WSGI file linked from the `Code` section of the `Web` tab, typically:
 
 ```text
-/var/www/YOUR_PYTHONANYWHERE_USERNAME_pythonanywhere_com_wsgi.py
+/var/www/pw123_pythonanywhere_com_wsgi.py
 ```
 
 Replace its contents with the repository template from:
 
 - `deployment/pythonanywhere_wsgi.py`
 
-Required substitutions:
-
-- `YOUR_PYTHONANYWHERE_USERNAME`
+This repository already includes the deployed username and host values for `pw123`.
 
 ## 6. Run migrations and collect static files
 
@@ -104,12 +102,12 @@ python manage.py collectstatic --noinput
 In the `Static Files` section of the `Web` tab, add:
 
 - URL: `/static/`
-- Directory: `/home/YOUR_PYTHONANYWHERE_USERNAME/bookscope-api/staticfiles`
+- Directory: `/home/pw123/bookscope-api/staticfiles`
 
 Optional media mapping:
 
 - URL: `/media/`
-- Directory: `/home/YOUR_PYTHONANYWHERE_USERNAME/bookscope-api/media`
+- Directory: `/home/pw123/bookscope-api/media`
 
 ## 8. Reload and verify
 
@@ -117,9 +115,9 @@ Click `Reload` on the `Web` tab.
 
 Then open:
 
-- `https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/api/health/`
-- `https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/api/docs/`
-- `https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/admin/`
+- `https://pw123.pythonanywhere.com/api/health/`
+- `https://pw123.pythonanywhere.com/api/docs/`
+- `https://pw123.pythonanywhere.com/admin/`
 
 Expected health response:
 
@@ -138,12 +136,18 @@ workon bookscope-api
 python manage.py import_google_books --input-file data/samples/google_books_raw_sample.json
 ```
 
-## 10. What to update after deployment succeeds
+## 10. Post-deployment checklist
 
-Update these files with your real public URL:
+These files were updated with the live public URL after deployment succeeded:
 
 - `README.md`
 - `docs/technical_report.md`
 - `slides/bookscope_presentation_outline.md` if needed
 
 Also mention the live URL during the oral presentation.
+
+Deployment status for this repository:
+
+- Live site: `https://pw123.pythonanywhere.com/`
+- Verified health endpoint: `https://pw123.pythonanywhere.com/api/health/`
+- Verified Swagger UI: `https://pw123.pythonanywhere.com/api/docs/`

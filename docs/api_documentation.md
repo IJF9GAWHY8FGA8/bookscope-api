@@ -17,9 +17,11 @@ Related submission assets:
 ## Base URLs
 
 - Runtime API root: `/api/`
+- Live API root: `https://pw123.pythonanywhere.com/api/`
 - Health endpoint: `/api/health/`
 - Schema endpoint: `/api/schema/`
 - Swagger UI: `/api/docs/`
+- Live Swagger UI: `https://pw123.pythonanywhere.com/api/docs/`
 
 ## Authentication
 
@@ -230,8 +232,7 @@ Example response:
 ```json
 {
   "id": 1,
-  "user": 1,
-  "book": 1,
+  "username": "reader1",
   "rating": 5,
   "title": "Excellent",
   "content": "Focused, practical, and easy to apply.",

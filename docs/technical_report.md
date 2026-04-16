@@ -3,6 +3,8 @@
 ## 1. Submission Links
 
 - Public repository: https://github.com/IJF9GAWHY8FGA8/bookscope-api
+- Live deployment: https://pw123.pythonanywhere.com/
+- Live Swagger UI: https://pw123.pythonanywhere.com/api/docs/
 - API documentation PDF: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/docs/api_documentation.pdf
 - Presentation slides: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/slides/bookscope_presentation.pptx
 - GenAI appendix: https://github.com/IJF9GAWHY8FGA8/bookscope-api/blob/main/docs/genai_usage_appendix.pdf
@@ -120,7 +122,7 @@ The main implementation challenge was balancing coursework scope against depth. 
 
 ## 13. Deployment and Delivery
 
-The repository includes a PythonAnywhere deployment package built around a manual WSGI web app, a virtualenv, static file mappings, and an environment-driven configuration file. This choice fits the coursework well because it provides a simple externally hosted Django deployment without requiring Docker or more complex infrastructure. In this environment no PythonAnywhere account credentials were available, so a live public URL could not be provisioned automatically. The deployment guide and WSGI template are nevertheless included so that the project can be published on PythonAnywhere with minimal manual setup.
+The project is deployed on PythonAnywhere at https://pw123.pythonanywhere.com/. The deployment uses a manually configured WSGI web app, a dedicated virtualenv, static file mappings, and an environment-driven configuration file. This choice fits the coursework well because it provides a simple externally hosted Django deployment without requiring Docker or more complex infrastructure. After deployment, the live instance was verified through the health endpoint, Swagger UI, public catalog routes, authentication flow, bookshelf creation, review creation, and recommendation endpoints. The repository also includes the deployment guide and WSGI template used for that release so the hosted setup remains inspectable alongside the source code.
 
 ## 14. Limitations
 
@@ -129,7 +131,7 @@ The project has several acknowledged limitations:
 - SQLite is not ideal for high-concurrency production workloads
 - recommendation scoring is heuristic rather than learned from large-scale behavior
 - trend scoring is simplistic and can be improved with richer temporal weighting
-- live hosting still depends on final PythonAnywhere account-side setup
+- the hosted deployment still relies on manual PythonAnywhere dashboard configuration and SQLite-backed persistence
 
 Stating these limitations explicitly is important because the brief expects reflection and awareness of future improvement areas.
 

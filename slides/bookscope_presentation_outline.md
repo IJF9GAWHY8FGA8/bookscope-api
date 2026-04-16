@@ -9,7 +9,7 @@
 7. Recommendation and analytics design
 8. Testing and error handling
 9. Version control practice and commit history
-10. Deliverables and PythonAnywhere deployment method
+10. Deliverables and live PythonAnywhere deployment at https://pw123.pythonanywhere.com/
 11. Technical report highlights
 12. GenAI usage and oversight
 13. Demo flow, limitations, and next steps

@@ -3,6 +3,7 @@
 BookScope API is a Django REST Framework project for book discovery, personal bookshelves, reviews, explainable recommendations, and reading analytics.
 
 Public repository: <https://github.com/IJF9GAWHY8FGA8/bookscope-api>
+Live deployment: <https://pw123.pythonanywhere.com/>
 
 ## Core Features
 
@@ -88,6 +89,8 @@ Runtime schema endpoints:
 
 - `/api/schema/`
 - `/api/docs/`
+- Live health check: `https://pw123.pythonanywhere.com/api/health/`
+- Live Swagger UI: `https://pw123.pythonanywhere.com/api/docs/`
 
 Generated submission assets:
 
@@ -105,9 +108,15 @@ python manage.py spectacular --file docs/api_openapi.yaml
 python scripts/build_submission_assets.py
 ```
 
-## Deployment Readiness
+## Live Deployment
 
-The repository is prepared for a PythonAnywhere deployment:
+The project is deployed on PythonAnywhere:
+
+- Live site: `https://pw123.pythonanywhere.com/`
+- Health endpoint: `https://pw123.pythonanywhere.com/api/health/`
+- Swagger UI: `https://pw123.pythonanywhere.com/api/docs/`
+
+The repository also includes the deployment materials used for that release:
 
 - [PythonAnywhere deployment guide](docs/pythonanywhere_deployment.md)
 - [PythonAnywhere WSGI template](deployment/pythonanywhere_wsgi.py)
@@ -120,7 +129,7 @@ PythonAnywhere's official process uses:
 - the platform-side WSGI file from the `Web` tab
 - static file mappings for `/static/` and optionally `/media/`
 
-This environment did not include your PythonAnywhere account credentials, so the live public URL could not be provisioned automatically. The repository is prepared so that deployment can be completed directly from the PythonAnywhere dashboard and Bash console.
+The hosted instance was verified after deployment with live checks against the health endpoint, Swagger UI, catalog listing, JWT authentication, bookshelf creation, review creation, and recommendation endpoints.
 
 ## Main Endpoint Groups
 

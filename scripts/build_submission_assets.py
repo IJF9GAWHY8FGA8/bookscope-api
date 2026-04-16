@@ -16,6 +16,7 @@ from reportlab.platypus import Paragraph, Preformatted, SimpleDocTemplate, Space
 BASE_DIR = Path(__file__).resolve().parents[1]
 DOCS_DIR = BASE_DIR / "docs"
 SLIDES_DIR = BASE_DIR / "slides"
+LIVE_BASE_URL = "https://pw123.pythonanywhere.com"
 
 
 def _safe_md5(*args, **kwargs):
@@ -329,8 +330,8 @@ def build_presentation(target_path: Path) -> None:
     add_card(slide, Inches(0.95), Inches(1.9), Inches(2.7), Inches(1.7), "Deliverables", "Public repo\nREADME\nAPI docs PDF\nTechnical report PDF", white, navy, body)
     add_card(slide, Inches(3.95), Inches(1.9), Inches(2.7), Inches(1.7), "More deliverables", "GenAI appendix\nConversation logs appendix\nSlides PPTX\nTests", white, navy, body)
     add_card(slide, Inches(6.95), Inches(1.9), Inches(2.7), Inches(1.7), "Deployment method", "Manual web app\nVirtualenv\nPlatform WSGI file\nStatic mappings", white, navy, body)
-    add_card(slide, Inches(9.95), Inches(1.9), Inches(2.35), Inches(1.7), "Hosting note", "Final publication still needs a PythonAnywhere account and reload step.", sand, navy, body)
-    add_text(slide, Inches(0.95), Inches(4.35), Inches(11.1), Inches(1.1), "Target URL: https://YOUR_PYTHONANYWHERE_USERNAME.pythonanywhere.com/", 17, body)
+    add_card(slide, Inches(9.95), Inches(1.9), Inches(2.35), Inches(1.7), "Hosting note", "Live deployment verified on PythonAnywhere with health, docs, auth, and API smoke checks.", sand, navy, body)
+    add_text(slide, Inches(0.95), Inches(4.35), Inches(11.1), Inches(1.1), f"Live URL: {LIVE_BASE_URL}/", 17, body)
 
     # Slide 11
     slide = prs.slides.add_slide(prs.slide_layouts[6])
@@ -356,7 +357,7 @@ def build_presentation(target_path: Path) -> None:
     add_slide_frame(slide, "Demo Flow, Limitations, and Next Steps", 13, navy, white, coral)
     add_bullets(slide, Inches(0.95), Inches(1.95), Inches(11.0), [
         "Demo flow: register, import data, browse catalog, add bookshelf entry, create review, request recommendations, inspect analytics",
-        "Limitations: SQLite scale, heuristic ranking, and a final PythonAnywhere account-side publish step",
+        "Limitations: SQLite scale, heuristic ranking, and manual PythonAnywhere dashboard-side operations",
         "Next steps: richer ranking, stronger deployment hardening, more advanced filtering and caching",
     ], white, 18)
 
