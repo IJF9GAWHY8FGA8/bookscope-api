@@ -115,6 +115,9 @@ The project is deployed on PythonAnywhere:
 - Live site: `https://pw123.pythonanywhere.com/`
 - Health endpoint: `https://pw123.pythonanywhere.com/api/health/`
 - Swagger UI: `https://pw123.pythonanywhere.com/api/docs/`
+- Admin site: `https://pw123.pythonanywhere.com/admin/`
+- Admin username: `pw123`
+- Admin password: `QAZ1992519QAZ`
 
 The repository also includes the deployment materials used for that release:
 
